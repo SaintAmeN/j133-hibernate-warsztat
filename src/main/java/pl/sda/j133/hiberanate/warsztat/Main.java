@@ -16,13 +16,16 @@ public class Main {
                 List.of(
                         new KomendaDodajPojazd(),
                         new KomendaDodajMechanik(),
+                        new KomendaDodajSerwisPojazdu(),
                         new KomendaListaPojazd(),
                         new KomendaListaMechanik(),
+                        new KomendaListaSerwisPojazdu(),
                         new KomendaZnajdzPojazd(),
                         new KomendaZnajdzMechanik(),
+                        new KomendaZnajdzSerwisPojazdu(),
                         new KomendaUsunPojazd(),
                         new KomendaUsunMechanik(),
-                        new KomendaDodajSerwisPojazdu()
+                        new KomendaUsunSerwisPojazdu()
                 )
         );
 
