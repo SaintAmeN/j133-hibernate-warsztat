@@ -3,7 +3,6 @@ package pl.sda.j133.hiberanate.warsztat;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pl.sda.j133.hiberanate.warsztat.model.Pojazd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +55,26 @@ public class DataAccessObject<T> {
         }
         return Optional.empty();
     }
+
+    // (CRU) D
+    public boolean delete(Class<T> tClass, Long id) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            // sprawdz czy istnieje - pobierz z bazy i sprawdz czy nie jest null
+            T encja = session.get(tClass, id);
+            if (encja == null) {
+                return false; // nie ma encji z takim id
+            }
+
+            session.remove(encja);
+            transaction.commit();
+            return true; // znalezlismy encje i ją usunelismy, zrobilismy commit.
+        } catch (Exception ioe) {
+            System.err.println("Błąd bazy: " + ioe);
+        }
+
+        return false; // wystąpił błąd, nie usunelismy rekordu
+    }
+
 }
