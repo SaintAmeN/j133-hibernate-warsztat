@@ -1,6 +1,7 @@
 package pl.sda.j133.hiberanate.warsztat;
 
 import pl.sda.j133.hiberanate.warsztat.komendy.Komenda;
+import pl.sda.j133.hiberanate.warsztat.komendy.KomendaDodajMechanik;
 import pl.sda.j133.hiberanate.warsztat.komendy.KomendaDodajPojazd;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class Main {
     public static void main(String[] args) {
         List<Komenda> listaKomend = new ArrayList<>(
                 List.of(
-                        new KomendaDodajPojazd()
+                        new KomendaDodajPojazd(),
+                        new KomendaDodajMechanik()
                 )
         );
 
