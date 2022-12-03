@@ -2,6 +2,7 @@ package pl.sda.j133.hiberanate.warsztat.komendy;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pl.sda.j133.hiberanate.warsztat.DataAccessObject;
 import pl.sda.j133.hiberanate.warsztat.HibernateUtil;
 import pl.sda.j133.hiberanate.warsztat.model.Mechanik;
 
@@ -11,6 +12,12 @@ import pl.sda.j133.hiberanate.warsztat.model.Mechanik;
  * @created 03.12.2022
  */
 public class KomendaDodajMechanik implements Komenda{
+    private DataAccessObject<Mechanik> dataAccessObject;
+
+    public KomendaDodajMechanik() {
+        this.dataAccessObject = new DataAccessObject<>();
+    }
+
     @Override
     public String getKomenda() {
         return "dodaj mechanik";
@@ -33,14 +40,6 @@ public class KomendaDodajMechanik implements Komenda{
                 .imie(imie)
                 .build();
 
-        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            session.persist(mechanik);
-
-            transaction.commit();
-        } catch (Exception e) {
-            System.err.println("Błąd: " + e);
-        }
+        dataAccessObject.insert(mechanik);
     }
 }
