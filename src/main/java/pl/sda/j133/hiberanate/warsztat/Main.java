@@ -25,7 +25,10 @@ public class Main {
                         new KomendaZnajdzSerwisPojazdu(),
                         new KomendaUsunPojazd(),
                         new KomendaUsunMechanik(),
-                        new KomendaUsunSerwisPojazdu()
+                        new KomendaUsunSerwisPojazdu(),
+                        new KomendaAktualizujPojazd(),
+                        new KomendaAktualizujMechanik(),
+                        new KomendaZakonczSerwisPojazdu()
                 )
         );
 
@@ -36,7 +39,7 @@ public class Main {
         String komenda = Komenda.scanner.nextLine();
 
         for (Komenda dostepnaKomenda : listaKomend) {
-            if(dostepnaKomenda.getKomenda().equalsIgnoreCase(komenda)){
+            if (dostepnaKomenda.getKomenda().equalsIgnoreCase(komenda)) {
                 dostepnaKomenda.obsluga();
             }
         }

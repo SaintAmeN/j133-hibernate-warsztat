@@ -3,6 +3,7 @@ package pl.sda.j133.hiberanate.warsztat;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pl.sda.j133.hiberanate.warsztat.model.Mechanik;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,4 +78,34 @@ public class DataAccessObject<T> {
         return false; // wystąpił błąd, nie usunelismy rekordu
     }
 
+    public void update(Class<T> tClass, Long id, T encjaAktualizujaca) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            // kolejne linie weryfikują to że rekord istnieje i że będziemy mogli go aktualizować w jednej transakcji
+            T encja = session.get(tClass, id);
+            if (encja == null) {
+                System.err.println("Nie znaleziono rekordu!");
+                return;
+            }
+
+            session.merge(encjaAktualizujaca);
+
+            transaction.commit();
+        } catch (Exception e) {
+            System.err.println("Błąd: " + e);
+        }
+    }
+
+    public boolean exists(Class<T> tClass, Long id) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            T encja = session.get(tClass, id);
+            if (encja != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("Błąd: " + e);
+        }
+        return false;
+    }
 }

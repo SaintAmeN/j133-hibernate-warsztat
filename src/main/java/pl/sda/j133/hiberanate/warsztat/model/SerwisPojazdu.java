@@ -22,13 +22,16 @@ public class SerwisPojazdu {
     private Long id;
 
     private String opis;
-    private String zrealizowaneCzynnosci;
-    private Double koszt;
 
     @CreationTimestamp
     private LocalDateTime czasDodania;
 
+    // TODO: dokończyć komendę która "zamyka" zlecenie serwisowe SerwisPojazdu
+    // KomendaZrealizujSerwisPojazdu
+    // KomendaZamknijSerwisPojazdu
     private LocalDateTime czasZrealizowania;
+    private String zrealizowaneCzynnosci;
+    private Double koszt;
 
     @ManyToOne
     @ToString.Exclude
